@@ -3,10 +3,12 @@
 		<map :longitude="longitude" :latitude="latitude" :show-location="showLocatiion">
 			<div class="footer">
 				<span>定位</span>
-				<span @click="goToMy">我的</span>
+				<span>我的</span>
 			</div>
 		</map>
-		<button>添加面试</button>
+		<navigator url="../vinterView/interview">
+			<button>添加面试</button>
+		</navigator>
 	</div>
 </template>
 
@@ -46,6 +48,9 @@
 			// 点击我的
 			goToMy() {
 				console.log(111)
+			},
+			btn() {
+				console.log(111)
 			}
 		}
 	});
@@ -77,10 +82,15 @@ map {
 	}
 }
 button {
-  width: 100%;
-  height: 100rpx;
-  position: fixed;
-  bottom: 0;
-  left: 0;
+	width: 100%;
+	height: 100rpx;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background: #000;
+	color: #fff;
+	border: 0;
+	outline: none;
+	border-radius: 0;
 }
 </style>

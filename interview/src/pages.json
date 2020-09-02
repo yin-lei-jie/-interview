@@ -5,6 +5,12 @@
 			"style": {
 				"navigationBarTitleText": "一面而就"
 			}
+		},
+		{
+			"path": "pages/vinterView/interview",
+			"style": {
+				"navigationBarTitleText": "添加面试"
+			}
 		}
 	],
 	"permission": {
@@ -15,7 +21,7 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarBackgroundColor": "#fff",
 		"backgroundColor": "#F8F8F8"
 	}
 }
