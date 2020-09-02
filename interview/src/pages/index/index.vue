@@ -1,10 +1,13 @@
 <template>
-	<view class="content">
-        <image class="logo" src="../../static/logo.png"></image>
-		<view>
-            <text class="title">{{title}}</text>
-        </view>
-	</view>
+	<div class="container">
+		<map :longitude="longitude" :latitude="latitude" :show-location="showLocatiion">
+			<div class="footer">
+				<span>定位</span>
+				<span @click="goToMy">我的</span>
+			</div>
+		</map>
+		<button>添加面试</button>
+	</div>
 </template>
 
 <script lang="ts">
@@ -12,39 +15,72 @@
 	export default Vue.extend({
 		data() {
 			return {
-				title: 'Hello'
+				longitude: 116.41,
+				latitude: 39.9,
+				showLocatiion: true
 			}
 		},
 		onLoad() {
 
 		},
+		onShow() {
+			this.getLocation();
+		},
 		methods: {
-
+			// 地图定位
+			getLocation() {
+				wx.getLocation({
+					type: 'gcj02', //默认为 wgs84 返回 gps 坐标，gcj02 返回可用于wx.openLocation的坐标
+					// altitude: false,
+					success: (res) => {
+						this.longitude = res.longitude;
+						this.latitude = res.latitude;
+					},
+					fail: () => {
+						console.log("getLocation failed")
+					},
+					complete: () => {}
+				});
+				  
+			},
+			// 点击我的
+			goToMy() {
+				console.log(111)
+			}
 		}
 	});
 </script>
 
-<style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+<style lang="scss" scoped>
+.container {
+  height: 100%;
+}
+map {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding-bottom: 100rpx;
+}
+.footer{
+	width: 100%;
+	height: 80rpx;
+	position: fixed;
+	bottom: 100rpx;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	span{
+		padding: 10rpx;
+		width: 100rpx;
+		height: 50rpx;
+		// background: rgb(151, 205, 50);
 	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin: 200rpx auto 50rpx auto;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
-	}
+}
+button {
+  width: 100%;
+  height: 100rpx;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
 </style>
