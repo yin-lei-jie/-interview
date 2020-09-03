@@ -11,6 +11,13 @@
 			"style": {
 				"navigationBarTitleText": "添加面试"
 			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "个人中心"
+			}
+
 		}
 	],
 	"permission": {

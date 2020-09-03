@@ -1,11 +1,19 @@
 <template>
 	<div class="container">
 		<map :longitude="longitude" :latitude="latitude" :show-location="showLocatiion">
-			<div class="footer">
-				<span>定位</span>
-				<span>我的</span>
-			</div>
 		</map>
+		<div class="footer">
+			<span>
+				<navigator>
+					<icon class="iconfont icon-location"></icon>
+				</navigator>
+			</span>
+			<span class="my">
+				<navigator url="../my/my">
+					<icon class="iconfont icon-wode"></icon>
+				</navigator>
+			</span>
+		</div>
 		<navigator url="../vinterView/interview">
 			<button>添加面试</button>
 		</navigator>
@@ -74,11 +82,18 @@ map {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	z-index: 9999;
 	span{
-		padding: 10rpx;
-		width: 100rpx;
-		height: 50rpx;
-		// background: rgb(151, 205, 50);
+		display: block;
+		color: #197CBF;
+	// 	padding: 10rpx;
+	// 	width: 100rpx;
+	// 	height: 50rpx;
+	}
+	.my{
+		position: fixed;
+		bottom: 100rpx;
+		right: 0;
 	}
 }
 button {
