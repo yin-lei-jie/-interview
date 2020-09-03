@@ -3,7 +3,7 @@ const Fly = require('flyio/dist/npm/wx');
 const fly = new Fly;
 
 // 设置超时
-fly.config.timeout = 30000;
+fly.config.timeout = 30000000;
 // 设置请求基地址
 fly.config.baseURL = "https://sign.jasonandjay.com";
 

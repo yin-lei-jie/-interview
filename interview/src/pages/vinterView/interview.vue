@@ -13,8 +13,11 @@
                         <input class="uni-input" name="phone" placeholder="请输入面试练习人电话">
                     </p>
                     <p>
-                        <view class="title">面试时间</view>
-                        <input class="uni-input" name="times" placeholder="请输入公司的名称">
+                        <picker @columnchange="columnChange" :value="time" :range="[formatDays, formatHours, formatMins]" mode="multiSelector">
+                            <view class="picker">
+                                面试时间 {{formatTime}}
+                            </view>
+                        </picker>
                     </p>
                     <p>
                         <view class="title">面试地址</view>
@@ -23,25 +26,34 @@
                     <span class="header">备注信息</span>
                     <editor class="uni-input" placeholder="备注信息（可选，100字以内）" maxlength="100"></editor>
                 </view>
+                <section>
+                    
+                </section>
                 <view class="uni-btn-v">
                     <button class="btn" form-type="submit">确定</button>
-                    <!-- <button type="default" form-type="reset">Reset</button> -->
                 </view>
             </form>
         </view>
     </view>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue';
-export default Vue.extend({
+import moment from 'moment';
+const days = [0, 1, 2, 3, 4, 5, 6];
+const hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+const mins = ['00', 10, 20, 30, 40, 50];
+export default{
     data() {
         return {
-            
+            days,
+            hours,
+            mins,
+            time:[0, 0, 0]
         }
     },
      methods: {
-        formSubmit: function(e) {
+        formSubmit: function(e: any) {
             console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
             var formdata = e.detail.value
             uni.showModal({
@@ -49,11 +61,40 @@ export default Vue.extend({
                 showCancel: false
             });
         },
-        // formReset: function(e) {
-        //     console.log('清空数据')
-        // }
+        columnChange(e: any) {
+            let { column, value } = e.detail;
+            this.time[column] = value;
+            this.time = [...this.time];
+            console.log(this.time, value)
+        }
+    }, 
+    computed: {
+        formatDays() {
+            return days.map(item => {
+                return moment().add(item, 'd').date()+'号'
+            })
+        },
+        formatHours() {
+            if(this.time[0] === 0) {
+                return hours.filter(item => item > moment().hour()).map(item => item+'点')
+            } else {
+                return hours.map(item => item+'点')
+            }
+        },
+        formatMins() {
+            return mins.map(item => item + '分');
+        },
+        formatTime() {
+            let time = this.time as number[];
+            return moment({hour: 0, minute: 0}).add(time[0], 'd').add(time[1], 'h').add(time[2]*10, 'm').format('YYYY-MM-DD HH:mm');
+        }
+    },
+    created(){
+        if(this.time[0] === 0) {
+            this.time[1] = moment().hour()+1;
+        }
     }
-})
+}
 </script>
 
 <style lang="scss" scoped>
